@@ -1,23 +1,23 @@
 {
-    "name": "mh-workflowbrowser",
-    "description": "Interactive visualization of Matterhorn workflows on zoomable timeline",
-    "license": "Apache-2.0",
-    "main": [
-	"app/scripts/main.js",
-	"app/styles/main.css"
-    ],
+  "name": "mh-workflowbrowser",
+  "description": "Interactive visualization of Matterhorn workflows on zoomable timeline",
+  "license": "Apache-2.0",
+  "main": [
+    "app/scripts/main.js",
+    "app/styles/main.css"
+  ],
   "ignore": [
-      "doc",
-      "app/data",
-      "*.txt",
-      "favicon.ico",
-      "test",
-      "*.html",
-      "*.git*",
-      "*.md",
-      ".*",
-      "Gruntfile.js",
-      "*.json"
+    "doc",
+    "app/data",
+    "*.txt",
+    "favicon.ico",
+    "test",
+    "*.html",
+    "*.git*",
+    "*.md",
+    ".*",
+    "Gruntfile.js",
+    "*.json"
   ],
   "keywords": [
     "matterhorn",
@@ -36,7 +36,8 @@
     "bootstrap-multiselect": "~0.9.10",
     "bootstrap": "3.3.1",
     "d3-tip": "~0.6.6",
-    "underscore": "~1.7.0"
+    "underscore": "~1.7.0",
+    "mh-workflowbrowser": "^0.1.2"
   },
   "resolutions": {
     "d3": "~3.5.3"

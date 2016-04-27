@@ -6,14 +6,60 @@
 'use strict';
 
 function _createWorkflowBrowser(conf,wfb) {
-  
-  wfb.operationConf = conf.operationConf || {'apply-acl':{'color':'#6baed6'},'tag':{'color':'#9ecae1'},'inspect':{'color':'#c6dbef'},'prepare-av':{'color':'#e6550d'},'compose':{'color':'#3182bd'},'waveform':{'color':'#fd8d3c'},'append':{'color':'#fdae6b'},'cleanup':{'color':'#fdd0a2'},'send-email':{'color':'#31a354','boost':1 },'editor':{'color':'#74c476'},'image':{'color':'#a1d99b'},'segment-video':{'color':'#c7e9c0'},'segmentpreviews':{'color':'#756bb1'},'retract-engage':{'color':'#9e9ac8'},'publish-engage':{'color':'#bcbddc'},'test-local':{'color':'#dadaeb'},'zip':{'color':'#636363'},'execute-once':{'color':'#969696'},'archive':{'color':'#bdbdbd'},'error-resolution':{'color':'#d9d9d9'},'schedule':{'color':'#3182bd', 'visible':false},'capture':{'color':'#6baed6'},'ingest':{'color':'#9ecae1'}, 'process-smiltrack': {'color': '#afafaf'}};
-      
+
+  wfb.operationConf = conf.operationConf || {
+   'apply-acl':{
+      'color':'#6baed6',
+      'visible':false
+   },
+   'inspect':{
+      'color':'#c6dbef',
+      'visible':false
+   },
+   'compose':{
+      'color':'#2196F3'
+   },
+   'waveform':{
+      'color':'#fd8d3c',
+      'visible':false
+   },
+   'send-email':{
+      'color':'#31a354',
+      'visible':false
+   },
+   'editor':{
+      'color':'#4CAF50'
+   },
+   'publish-engage':{
+      'color':'#bcbddc',
+      'visible':false
+   },
+   'publish-oaipmh':{
+      'color':'#D1C4E9'
+   },
+   'archive2':{
+      'color':'#F44336',
+      'boost':1
+   },
+   'schedule':{
+      'color':'#3182bd',
+      'visible':false
+   },
+   'capture':{
+      'color':'#FFEB3B',
+      'visible':false
+   },
+   'ingest':{
+      'color':'#FF9800',
+      'boost':1
+   }
+};
+
   var timeManager    = require('./times').createTimeManager();
-  var colorist   = require('./colors').createColorist({'timeManager':timeManager,'operationConf':wfb.operationConf,'confStateColors':conf.stateColors});  
-  var tooltipper = require('./tooltips').createTooltipper({'timeManager':timeManager,'colorist':colorist}); 
+  var colorist   = require('./colors').createColorist({'timeManager':timeManager,'operationConf':wfb.operationConf,'confStateColors':conf.stateColors});
+  var tooltipper = require('./tooltips').createTooltipper({'timeManager':timeManager,'colorist':colorist});
   var stacker  = require('./stacker');
-  
+
   var dateStarted, dateCompleted;
   var offHours = [];
   var midnights = [];
@@ -26,8 +72,8 @@ function _createWorkflowBrowser(conf,wfb) {
   var height = conf.height;
   var workflowTip,operationTip,jobTip,lateAvailableTip, lateTrimTip;
 
-  wfb.visibleOperationIds = []; 
- 
+  wfb.visibleOperationIds = [];
+
   $.each(wfb.operationConf,function(id,props){
     if ( ! props.hasOwnProperty('visible') ) {
       props.visible=true;
@@ -39,12 +85,12 @@ function _createWorkflowBrowser(conf,wfb) {
 
   var resized = true;
 
-  _.defaults(wfb, { 'dateStarted':  null}); 
-  _.defaults(wfb, { 'dateCompleted': null});  
+  _.defaults(wfb, { 'dateStarted':  null});
+  _.defaults(wfb, { 'dateCompleted': null});
 
   wfb.dataSources = conf.dataSources;
   wfb.maxMediaDuration =0;
-  wfb.scaleByMediaDuration = true;
+  wfb.scaleByMediaDuration = false;
 
 
   wfb.visibleWorkflowStates = [];
@@ -68,7 +114,7 @@ function _createWorkflowBrowser(conf,wfb) {
   var operationHeight = 0;
 
   var workflowById = {};
-  
+
   // rationalize data workflow data structure if getting straight from MH.
   if (conf.workflows.hasOwnProperty('workflows') ) {
     conf.workflows = conf.workflows.workflows.workflow;
@@ -380,11 +426,11 @@ function _createWorkflowBrowser(conf,wfb) {
     var d = nav.append(
       'div').html('<select class="form-control" id="' + id + '"></select>');
     d.classed(fatCol,true);
-    $('#'+id).append($('<option>', { value : 'media_duration' }).text(
-      'Scale by Media Duration'));
     $('#'+id).append($('<option>', { value : 'constant' }).text(
       'Constant Height'));
-    $('#'+id).val('media_duration');
+    $('#'+id).append($('<option>', { value : 'media_duration' }).text(
+      'Scale by Media Duration'));
+    $('#'+id).val('constant');
     $('#'+id).change(function(){
       wfb.scaleByMediaDuration =      $('#'+id).val() === 'media_duration';
       wfb.reload();
@@ -463,7 +509,7 @@ function initWorkflowTip(){
 }
 
 function setJobsToRender(operation){
-  if ( _.has(operation,'job') && _.has(operation.job,'children')){   
+  if ( _.has(operation,'job') && _.has(operation.job,'children')){
     // mongo is doing funny things to my arrays...
     jobs=[];
     jobStacker = stacker.create();
@@ -491,10 +537,10 @@ function initOperationTip(){
       .offset(function(){
         return d3.mouse(this)[1]<tooltipper.toolTipSpace ? [10,-10] : [-10, 0]; } )
       .html(function(d) {
-        setJobsToRender(d);    
+        setJobsToRender(d);
         return tooltipper.commonTipText(workflowById[d.workflowId],workflowStacker.rowCount()) + '<hr />' + tooltipper.operationTipText(d)
         ;
-      });  
+      });
   svg.call(operationTip);
   operationTip.direction(function() {
     operationTip.attr('class', 'd3-tip');
@@ -537,7 +583,7 @@ function initTooltips(){
   initOperationTip();
   initJobTip();
   initLateTrimTip();
-  initLateAvailableTip();  
+  initLateAvailableTip();
 }
 
 initTooltips();
@@ -546,7 +592,7 @@ initTooltips();
       wfb.dateStarted = new Date(parseInt(wfb.urlState.a));
       console.log('urlState a:' + wfb.dateStarted);
   }
-  
+
   if (_.has(wfb.urlState,'z')){
     wfb.dateCompleted = new Date(parseInt(wfb.urlState.z));
     console.log('urlState z:' + wfb.dateCompleted);
@@ -722,7 +768,7 @@ initTooltips();
       .style('stroke',  'yellow')
       .style('opacity',0.6)
       .on('mouseover', jobTip.show)
-      .on('mouseout',  jobTip.hide)      
+      .on('mouseout',  jobTip.hide)
       .style('fill', 'yellow' )
     ;
     // update y
@@ -731,7 +777,7 @@ initTooltips();
         .attr('y', function(d){ return workflowY(d.operation)-1;})
         .attr('height', 3);
         //.attr('height', function(d){return scaledOperationHeight(d.operation);})
-      
+
     }
     // update x
     events
@@ -861,7 +907,7 @@ initTooltips();
 
 
 
-  var rawReload = function rawReload(){    
+  var rawReload = function rawReload(){
     // make sure blast circles and workflows are removed so "z-index" is
     // correct when they are re-added.
     container.selectAll('circle').remove();

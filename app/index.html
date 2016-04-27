@@ -11,6 +11,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/bootstrap-multiselect/dist/css/bootstrap-multiselect.css" />
+    <link rel="stylesheet" href="bower_components/mh-workflowbrowser/app/styles/main.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -32,6 +33,7 @@
     <script src="bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect.js"></script>
     <script src="bower_components/d3-tip/index.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/mh-workflowbrowser/app/scripts/main.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -51,7 +53,7 @@
       $(document).ready(function() {
       wfb = workflowBrowser({
       dataSources: dataSources,
-      selectedDataSourceName: 'Prod',
+      selectedDataSourceName: 'Prod-Admin',
       width: window.innerWidth,
       height: window.innerHeight,
       target: '#wfb'
