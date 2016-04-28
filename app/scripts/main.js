@@ -117,7 +117,11 @@ function _createWorkflowBrowser(conf,wfb) {
 
   // rationalize data workflow data structure if getting straight from MH.
   if (conf.workflows.hasOwnProperty('workflows') ) {
-    conf.workflows = conf.workflows.workflows.workflow;
+    if (Array.isArray(conf.workflows.workflows.workflow)){
+      conf.workflows = conf.workflows.workflows.workflow;
+    } else {
+      conf.workflows = [conf.workflows.workflows.workflow];
+    }
     $.each(conf.workflows,function(i,workflow){
       if (workflow.hasOwnProperty('operations')){
         workflow.operations = workflow.operations.operation;
