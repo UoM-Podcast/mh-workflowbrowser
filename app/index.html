@@ -48,25 +48,25 @@
 
     <script src="data/dataSources.js"></script>
 
-    
+
     <script>
       $(document).ready(function() {
       wfb = workflowBrowser({
       dataSources: dataSources,
-      selectedDataSourceName: 'Prod-Admin',
+      selectedDataSourceName: 'Dev-Admin',
       width: window.innerWidth,
       height: window.innerHeight,
       target: '#wfb'
       //operationColors: {"archive":"red"}
       });
-      
+
       $( window ).resize(function() {
       wfb.size(window.innerWidth,window.innerHeight);
       });
 
       });
     </script>
- 
+
 
 </body>
 </html>
