@@ -9,30 +9,25 @@ function _createWorkflowBrowser(conf,wfb) {
 
   wfb.operationConf = conf.operationConf || {
    'apply-acl':{
-      'color':'#6baed6',
-      'visible':false
+      'color':'#6baed6'
    },
    'inspect':{
-      'color':'#c6dbef',
-      'visible':false
+      'color':'#c6dbef'
    },
    'compose':{
       'color':'#2196F3'
    },
    'waveform':{
-      'color':'#fd8d3c',
-      'visible':false
+      'color':'#fd8d3c'
    },
    'send-email':{
-      'color':'#31a354',
-      'visible':false
+      'color':'#31a354'
    },
    'editor':{
       'color':'#4CAF50'
    },
    'publish-engage':{
-      'color':'#bcbddc',
-      'visible':false
+      'color':'#bcbddc'
    },
    'publish-oaipmh':{
       'color':'#D1C4E9'
@@ -52,7 +47,32 @@ function _createWorkflowBrowser(conf,wfb) {
    'ingest':{
       'color':'#FF9800',
       'boost':1
+   },
+   'cleanup':{
+     'visible':true
+   },
+   'defaults':{
+     'visible':true
+   },
+   'image':{
+     'visible':true
+   },
+   'ingest-download':{
+     'visible':true
+   },
+   'notify-staff':{
+     'visible':true
+   },
+   'prepare-av':{
+     'visible':true
+   },
+   'silence':{
+     'visible':true
+   },
+   'tag':{
+     'visible':true
    }
+
 };
 
   var timeManager    = require('./times').createTimeManager();
